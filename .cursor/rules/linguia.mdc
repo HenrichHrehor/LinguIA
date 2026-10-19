@@ -1,0 +1,21 @@
+---
+description: LinguIA project rules — personalized ESL planning over HTML apps
+alwaysApply: true
+---
+
+# LinguIA rules
+
+## Product
+- LinguIA proposes a teacher-deliverable online plan; it does not replace teaching.
+- Levels: `starter` | `support` | `advance`.
+- Lesson shell is mostly fixed; content is personalized over time.
+- v1: static hub + onboarding draft plan + curriculum maps. Supabase comes later.
+
+## Content
+- Register reusable HTML apps in `curriculum/apps-registry.md`.
+- Map apps to topic IDs in `curriculum/topics.md`.
+- Prefer linking existing live apps before rebuilding.
+
+## Honesty
+- Generated plans are drafts for teacher review.
+- Do not promise full automation of 50 topics on day one.

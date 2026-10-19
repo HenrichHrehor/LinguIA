@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinguIA</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#2d6cdf">
+  <style>
+    :root {
+      --bg: #eef2f8;
+      --panel: #1c2430;
+      --card: #fff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ee;
+      --primary: #2d6cdf;
+      --magenta: #e11d8f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap { max-width: 920px; margin: 36px auto; padding: 0 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+    h1 { margin: 0 0 8px; font-size: 32px; }
+    h2 { margin: 0 0 10px; font-size: 20px; }
+    .brand { color: var(--magenta); }
+    .muted { color: var(--muted); font-size: 14px; }
+    a { color: var(--primary); font-weight: 700; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 20px; }
+    li { margin: 8px 0; }
+    .pill {
+      display: inline-block;
+      background: var(--panel);
+      color: #fff;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Lingu<span class="brand">IA</span></h1>
+      <p class="muted">Personalizovaný plán výučby angličtiny nad tvojimi HTML appkami.</p>
+      <p>
+        <span class="pill">Starter</span>
+        <span class="pill">Support</span>
+        <span class="pill">Advance</span>
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Test hub (v1)</h2>
+      <ul>
+        <li><a href="./onboarding/">Onboarding → návrh plánu (+2 extra)</a></li>
+        <li><a href="./curriculum/topics.md">Curriculum topics</a></li>
+        <li><a href="./curriculum/apps-registry.md">Apps registry</a></li>
+        <li><a href="./docs/concept-v1.md">Concept v1</a></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Live appky (Online-Class-lessons)</h2>
+      <ul>
+        <li><a href="https://henrichhrehor.github.io/Online-Class-lessons/classes/02/">Class 02 — About Me</a></li>
+        <li><a href="https://henrichhrehor.github.io/Online-Class-lessons/classes/01/">Class 01 — Powerful Tool</a></li>
+        <li><a href="https://henrichhrehor.github.io/Online-Class-lessons/classes/24/">Class 24 — My Story Spotlight</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

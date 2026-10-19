@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinguIA — Onboarding</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#2d6cdf">
+  <style>
+    :root {
+      --bg: #eef2f8;
+      --card: #fff;
+      --text: #1c2430;
+      --muted: #5b6878;
+      --line: #d8deea;
+      --primary: #2d6cdf;
+      --magenta: #e11d8f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 760px; margin: 24px auto 48px; padding: 0 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 12px;
+    }
+    h1 { margin: 0 0 8px; font-size: 26px; }
+    h2 { margin: 0 0 10px; font-size: 18px; }
+    .muted { color: var(--muted); font-size: 14px; }
+    label { display: block; font-weight: 600; margin: 12px 0 6px; }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      font: inherit;
+    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    button {
+      border: 0;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.secondary { background: #1c2430; }
+    #plan {
+      white-space: pre-wrap;
+      background: #f8fbff;
+      border: 1px dashed #93c5fd;
+      border-radius: 10px;
+      padding: 14px;
+      display: none;
+    }
+    .brand { color: var(--magenta); font-weight: 700; }
+    @media (max-width: 700px) { .row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Lingu<span class="brand">IA</span> — Onboarding</h1>
+      <p class="muted">V1 mock: vyplň profil → dostaneš návrh online plánu (+2 extra hodiny) pre učiteľa.</p>
+      <p><a href="../">← Hub</a></p>
+    </div>
+
+    <div class="card">
+      <h2>1. Profil</h2>
+      <div class="row">
+        <div>
+          <label for="name">Meno / kód študenta</label>
+          <input id="name" placeholder="napr. Zoe / HUGO-01">
+        </div>
+        <div>
+          <label for="learningMonths">Ako dlho sa učí (mesiace)</label>
+          <input id="learningMonths" type="number" min="0" value="12">
+        </div>
+      </div>
+      <label for="level">Odhadovaná úroveň</label>
+      <select id="level">
+        <option value="starter">Starter</option>
+        <option value="support" selected>Support</option>
+        <option value="advance">Advance</option>
+      </select>
+      <label for="book">Kniha / kurz (voliteľné)</label>
+      <input id="book" placeholder="napr. Project 3 / vlastný plán">
+      <label for="unit">Unit (voliteľné)</label>
+      <input id="unit" placeholder="napr. Unit 4">
+    </div>
+
+    <div class="card">
+      <h2>2. Preferencie</h2>
+      <label for="likes">Čo má rád pri učení</label>
+      <textarea id="likes" rows="2" placeholder="hry, short videos, speaking, stories..."></textarea>
+      <label for="demotivates">Čo ho demotivuje</label>
+      <textarea id="demotivates" rows="2" placeholder="dlhé texty, veľa gramatiky naraz, písanie..."></textarea>
+      <label for="wants">Témy / gramatika, ktorú chce</label>
+      <textarea id="wants" rows="2" placeholder="prepositions, past simple, about me..."></textarea>
+    </div>
+
+    <div class="card">
+      <button type="button" onclick="buildPlan()">Vygeneruj návrh plánu</button>
+      <button type="button" class="secondary" onclick="copyPlan()" style="margin-left:8px;">Copy plán</button>
+      <pre id="plan"></pre>
+    </div>
+  </div>
+
+  <script>
+    function buildPlan() {
+      var name = document.getElementById("name").value.trim() || "Student";
+      var months = document.getElementById("learningMonths").value || "?";
+      var level = document.getElementById("level").value;
+      var book = document.getElementById("book").value.trim() || "open path (no book lock)";
+      var unit = document.getElementById("unit").value.trim() || "—";
+      var likes = document.getElementById("likes").value.trim() || "—";
+      var demotivates = document.getElementById("demotivates").value.trim() || "—";
+      var wants = document.getElementById("wants").value.trim() || "teacher choice";
+
+      var coreTopics = [];
+      if (/preposition/i.test(wants)) coreTopics.push("T08 Prepositions");
+      if (/about me|be |have got/i.test(wants)) coreTopics.push("T01 About me");
+      if (/past/i.test(wants)) coreTopics.push("T04 Past Simple");
+      if (/perfect/i.test(wants)) coreTopics.push("T06 Present Perfect vs Past Simple");
+      if (/future|going to|will/i.test(wants)) coreTopics.push("T07 going to / will");
+      if (!coreTopics.length) {
+        if (level === "starter") coreTopics = ["T01 About me", "T02 Present Simple", "T08 Prepositions"];
+        else if (level === "advance") coreTopics = ["T06 Present Perfect vs Past Simple", "T07 going to / will", "T10 First conditional"];
+        else coreTopics = ["T01 About me", "T04 Past Simple", "T08 Prepositions"];
+      }
+
+      var apps = {
+        "T01 About me": "ocl-02 About Me",
+        "T04 Past Simple": "ocl-24 My Story Spotlight (past chapter)",
+        "T06 Present Perfect vs Past Simple": "ocl-01 Powerful Tool",
+        "T07 going to / will": "ocl-24 My Story Spotlight (plans)",
+        "T08 Prepositions": "(import Zoe/Hugo pack — pending)",
+        "T02 Present Simple": "(to build)",
+        "T10 First conditional": "(to build)"
+      };
+
+      var lines = [];
+      lines.push("LINGUIA — ONLINE PLAN DRAFT");
+      lines.push("Student: " + name);
+      lines.push("Learning months: " + months);
+      lines.push("Level: " + level);
+      lines.push("Book/Unit: " + book + " / " + unit);
+      lines.push("Likes: " + likes);
+      lines.push("Demotivates: " + demotivates);
+      lines.push("Requested focus: " + wants);
+      lines.push("");
+      lines.push("CORE LESSONS (teacher delivers)");
+      coreTopics.forEach(function (t, i) {
+        lines.push((i + 1) + ". " + t + "  → app: " + (apps[t] || "tbd"));
+        lines.push("   Structure: warm-up → input → practice → speaking → exit");
+      });
+      lines.push("");
+      lines.push("EXTRA +2 HOURS");
+      lines.push("E1. Recycling hour: mix weak points from core (short transforms + speaking)");
+      lines.push("E2. Personal project: mini About Me / Spotlight talk (2 minutes)");
+      lines.push("");
+      lines.push("TEACHER NOTE");
+      lines.push("- Avoid: " + demotivates);
+      lines.push("- Lean into: " + likes);
+      lines.push("- This is a DRAFT for teacher review, not auto-teaching.");
+
+      var out = document.getElementById("plan");
+      out.style.display = "block";
+      out.textContent = lines.join("\n");
+    }
+
+    function copyPlan() {
+      var text = document.getElementById("plan").textContent;
+      if (!text) { buildPlan(); text = document.getElementById("plan").textContent; }
+      if (navigator.clipboard) navigator.clipboard.writeText(text);
+    }
+  </script>
+</body>
+</html>
